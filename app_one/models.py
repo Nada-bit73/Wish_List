@@ -1,4 +1,3 @@
-from tkinter import CASCADE
 from django.db import models
 import re
 from django.db import models
@@ -46,7 +45,7 @@ class Wish(models.Model):
     item_name = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    users = models.ForeignKey(User, related_name="wishes",on_delete=CASCADE,blank=True,null=True)
+    users = models.ForeignKey(User, related_name="wishes",on_delete=models.CASCADE,blank=True,null=True)
     user_wishs = models.ManyToManyField(User, related_name="fav_wishes",blank=True)
     objects = ShowManager()
 
