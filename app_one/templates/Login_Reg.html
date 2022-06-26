@@ -1,0 +1,91 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="ml-2 justify-content-center align-items-center">
+    <ul class="messages">
+        {% for message in messages %}
+        <p {% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %}>{{ message }}</p>
+        {% endfor %}
+    </ul>
+
+</div>
+<div class="col-12">
+    <h2 class="form-heading ml-5 mt-2 mb-3">Welcome !</h2>
+</div>
+<div class="d-flex justify-content-center align-items-center container mb-3">
+    <div class="row ml-5">
+        <div class="span6">
+            <form class="form align-items-center" action='/register' method='POST'>
+
+                <h2 class="form-heading mb-5">Regestration</h2>
+
+                <div class="row mb-3">
+                    <label class="form-label">Name</label>
+                    <div class="col-12">
+                        <input type="text" name="name" class="form-control" aria-describedby="name" required>
+                    </div>
+                </div>
+
+                {% csrf_token %}
+                <div class="row mb-3">
+                    <label class="form-label">Username</label>
+                    <div class="col-12">
+                        <input type="text" name="username" class="form-control" aria-describedby="username" required>
+                    </div>
+                </div>
+
+
+
+
+                <div class="row mb-3">
+                    <label class="form-label">Password</label>
+                    <div class="col-12">
+                        <input type="text" name="password" class="form-control" aria-describedby="Password" required>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="form-label">Confirm Password</label>
+                    <div class="col-12">
+                        <input type="text" name="conf_pssword" class="form-control" aria-describedby="conf_pssword"
+                            required>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="form-label">Date Hired</label>
+                    <div class="col-12">
+                        <input type="date" name="date_hired" class="form-control" aria-describedby="date_hired"
+                            required>
+                    </div>
+                </div>
+                <button class="btn btn-large btn-dark" type="submit">Register</button>
+            </form>
+        </div>
+
+        <!--------------------------------------------------------------------------------------------->
+        <form class="form align-items-center ml-5" action='/login' method='POST'>
+            <div class="span6">
+                <h2 class="form-heading mb-5">Login</h2>
+
+                <div class="row mb-3">
+                    <label class="form-label">Username</label>
+                    <div class="col-12">
+                        <input type="text" name="username" class="form-control" aria-describedby="username" required>
+                    </div>
+                </div>
+
+                {% csrf_token %}
+                <div class="row mb-3">
+                    <label class="form-label">Password</label>
+                    <div class="col-12">
+                        <input type="text" name="password" class="form-control" aria-describedby="password" required>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-large btn-dark" type="submit">login</button>
+        </form>
+    </div>
+
+
+</div>
+{% endblock %}

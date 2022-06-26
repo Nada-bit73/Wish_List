@@ -1,0 +1,102 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<div class="d-flex justify-content-center justify-content-center container mb-3">
+    <div class="container align-items-center">
+        <div class="col mt-5 ml-3 mr-3 g-2 pt-2 pr-2 text-right">
+            <a type="submit" href="/logout" value="logout">logout</a>
+        </div>
+        <div class="row ml-5 mt-1 ">
+            <div class="span6">
+                <h1>Hello , {{ user.name }} !</h1>
+                <div class="row mb-3">
+                    <div class="container mt-5">
+                        <table class="table table-striped ml-5 mb-2">
+                            <label class="form-label">your wish list :</label>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Item</th>
+                                    <th scope="col">Added by</th>
+                                    <th scope="col">Date added</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for wish in user_wishes %}
+                                <tr>
+                                    <td scope="row">
+                                        <a href="{% url 'viewItem' wish.id %}">
+                                            {{ wish.item_name }}
+                                        </a>
+                                    </td>
+
+                                    <td scope="row">{{ user.name }}</td>
+                                    <td scope="row">{{ wish.created_at }}</td>
+                                    <td><a href="{% url 'deleteItem' wish.id %}">Delete</a></td>
+                                </tr>
+                                {% endfor %}
+                                {% for fav_wish in user_fav_wishes %}
+                                <tr>
+                                    <td scope="row">
+                                        <a href="{% url 'viewItem' fav_wish.id %}">
+                                            {{ fav_wish.item_name }}
+                                        </a>
+                                    </td>
+                                    <td scope="row">{{ fav_wish.users.name }}</td>
+
+                                    <td scope="row">{{ fav_wish.created_at }}</td>
+                                    <td><a href="{% url 'removeItem' fav_wish.id %}">Remove from my Wishlist</a></td>
+                                </tr>
+                                {% endfor %}
+
+
+                            </tbody>
+
+
+
+                        </table>
+                    </div>
+
+                </div>
+
+                <div class="row mb-3">
+                    <div class="container mt-5">
+                        <table class="table table-striped ml-5">
+                            <label class="form-label">other users wish list :</label>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Item</th>
+                                    <th scope="col">Added by</th>
+                                    <th scope="col">Date added</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in otherusers_items %}
+
+                                <tr>
+                                    <td scope="row">
+                                        <a href="{% url 'viewItem' item.id %}">
+                                            {{ item.item_name }}
+                                        </a>
+                                    </td>
+                                    <td scope="row">{{ item.users.name }}</td>
+
+                                    <td scope="row">{{ item.created_at }}</td>
+                                    <td><a href="{% url 'addToFavWish' item.id %}">add to my wish list</a></td>
+                                </tr>
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col mt-5 ml-3 mr-3 g-2 pt-2 pr-2 text-right">
+                    <a class="back" type="submit" href="/viewAddWish" value="Submit Data">
+                        add Item
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
